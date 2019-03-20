@@ -1,11 +1,11 @@
 <?php
 
-namespace Betalectic\FileManager;
+namespace Betalectic\Ocupado;
 
 use Laravel\Lumen\Application;
 use Laravel\Lumen\Routing\Router;
 
-class LumenFileManager {
+class LumenOcupado {
 
     public static function routes($app)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Betalectic\FileManager\Traits;
+namespace Betalectic\Ocupado\Traits;
 
 trait UUIDTrait {
 
