@@ -164,4 +164,20 @@ class Ocupado {
 		return $generator->timings;
 	}
 
+
+	// public function getAvailability(
+	// 	$entity //user, tutor, doctor,
+	// 	$date,
+	// 	$interval = 60,
+	// 	$bookingSlotSize = NULL,
+	// 	$extrapolateFrom = NULL,
+	// 	$extrapolateTo = NULL,
+	// 	$ignoreFrom = NULL,
+	// 	$ignoreTo = NULL,
+	// 	$ignoreBlockedDates = false
+	// )
+	// {
+		
+	// }
+
 }

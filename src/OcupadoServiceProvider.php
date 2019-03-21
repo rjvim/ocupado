@@ -15,11 +15,10 @@ class OcupadoServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/../routes.php');
 
         $this->setUpConfig();
 
-        class_alias(Helpers::getDynamicController(), 'Betalectic\Ocupado\Http\Controllers\DynamicController');
+        // class_alias(Helpers::getDynamicController(), 'Betalectic\Ocupado\Http\Controllers\DynamicController');
     }
 
     protected function setUpConfig()

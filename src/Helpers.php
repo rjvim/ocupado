@@ -4,26 +4,12 @@ namespace Betalectic\Ocupado;
 
 class Helpers {
 
-	public static function getDynamicController() {
-
-		if(class_exists(\Laravel\Lumen\Routing\Controller::class))
-		{
-			return 'Laravel\Lumen\Routing\Controller';
-		}
-
-		if(class_exists(\Illuminate\Routing\Controller::class))
-		{
-			return 'Illuminate\Routing\Controller';
-		}
-
-	}
-
 	public static function anyOverlaps($items)
 	{
 		$result = false;
 
 		foreach ($items as $index => $item) {
-			
+
 			$tempItems = $items;
 			unset($tempItems[$index]); // Remaining items
 
@@ -51,7 +37,7 @@ class Helpers {
 		$rangeTo = intval(str_replace(':', '', $rangeTo));
 
         if($findFrom > $rangeFrom && $findFrom < $rangeTo) {
-            return true;                        
+            return true;
         } else if($findTo > $rangeFrom && $findTo < $rangeTo) {
             return true;
         } else if($findFrom < $rangeFrom && $findTo > $rangeTo) {
