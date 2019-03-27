@@ -65,9 +65,42 @@ class Ocupado {
 
 	}
 
+    public function createOrUpdate($entity, $eventId, $startTime, $endTime, $meta = [])
+    {
+        $entity = $this->registerEntity($entity);
+
+        $builder = new Event();
+        $builder = Helpers::addDateRangeFilterQuery($builder, 'start_time','end_time',$startTime, $endTime);
+        $found = $builder->whereNotIn('uuid',[$eventId])->get();
+
+        if($found->count()){
+            return 'An event exists during this time';
+        }
+
+        $event = Event::firstOrCreate([
+            'uuid' => $eventId,
+            'entity_id' => $entity->id,
+        ]);
+
+        $event->fill([
+            'start_time' => Carbon::parse($startTime),
+            'end_time' => Carbon::parse($endTime),
+            'meta' => $meta
+        ]);
+
+        $event->save();
+
+        return $event->fresh();
+    }
+
     public function deleteEvent($eventId)
     {
-        return Event::whereUuid($eventId)->delete();
+        $event = Event::whereUuid($eventId)->first();
+        if(!is_null($event))
+        {
+            $event->delete();
+        }
+        return true;
     }
 
     public function findOverlaps($timings)
