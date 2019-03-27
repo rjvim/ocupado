@@ -93,9 +93,15 @@ class Ocupado {
         return $event->fresh();
     }
 
-    public function deleteEvent($eventId)
+    public function deleteEvent($entity, $eventId)
     {
-        $event = Event::whereUuid($eventId)->first();
+        $entity = $this->registerEntity($entity);
+
+        $event = Event::where([
+            'uuid' => $eventId,
+            'entity_id' => $entity->id,
+        ])->first();
+
         if(!is_null($event))
         {
             $event->delete();
