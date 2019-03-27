@@ -17,7 +17,7 @@ class Ocupado {
 
 	}
 
-	public function createEvent($entity, $startTime, $endTime, $meta = [])
+	public function createEvent($entity, $eventId, $startTime, $endTime, $meta = [])
 	{
 		$entity = $this->registerEntity($entity);
 
@@ -30,6 +30,7 @@ class Ocupado {
 		}
 
 		return Event::create([
+            'uuid' => $eventId,
 			'entity_id' => $entity->id,
 			'start_time' => Carbon::parse($startTime),
 			'end_time' => Carbon::parse($endTime),
@@ -63,6 +64,11 @@ class Ocupado {
 		return $event->fresh();
 
 	}
+
+    public function deleteEvent($eventId)
+    {
+        return Event::whereUuid($eventId)->delete();
+    }
 
     public function findOverlaps($timings)
     {
