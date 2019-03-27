@@ -64,6 +64,12 @@ class Ocupado {
 
 	}
 
+    public function findOverlaps($timings)
+    {
+        $overlaps = Helpers::anyOverlaps($timings);
+        return $overlaps;
+    }
+
 	public function registerEntity($entity)
 	{
 		return Entity::firstOrCreate([
@@ -72,7 +78,7 @@ class Ocupado {
 		]);
 	}
 
-	public function setDayAvailability($entity, $daysOfWeek, 
+	public function setDayAvailability($entity, $daysOfWeek,
 		$timings, $fromDate = NULL, $toDate = NULL)
 	{
 		$overlap = Helpers::anyOverlaps($timings);
@@ -177,7 +183,7 @@ class Ocupado {
 	// 	$ignoreBlockedDates = false
 	// )
 	// {
-		
+
 	// }
 
 }

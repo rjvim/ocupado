@@ -6,6 +6,7 @@ class Helpers {
 
 	public static function anyOverlaps($items)
 	{
+        $overlaps = [];
 		$result = false;
 
 		foreach ($items as $index => $item) {
@@ -19,14 +20,14 @@ class Helpers {
 
 				if($result)
 				{
-					return true;
+					$overlaps[] = $item;
 				}
 
 			}
 
 		}
 
-		return false;
+		return $overlaps;
 	}
 
     public static function isOverlapping($findFrom, $findTo, $rangeFrom, $rangeTo)
@@ -41,6 +42,8 @@ class Helpers {
         } else if($findTo > $rangeFrom && $findTo < $rangeTo) {
             return true;
         } else if($findFrom < $rangeFrom && $findTo > $rangeTo) {
+            return true;
+        } else if($findFrom == $rangeFrom && $findTo == $rangeTo) {
             return true;
         }
 
