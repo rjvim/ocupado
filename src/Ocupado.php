@@ -17,6 +17,15 @@ class Ocupado {
 
 	}
 
+	public function getEvents($entity, $startTime, $endTime)
+	{
+		$entity = $this->registerEntity($entity);
+		$builder = new Event();
+		$builder = Helpers::addDateRangeFilterQuery($builder, 'start_time','end_time',$startTime, $endTime);
+		return $builder->get();
+
+	}
+
 	public function createEvent($entity, $eventId, $startTime, $endTime, $meta = [])
 	{
 		$entity = $this->registerEntity($entity);
