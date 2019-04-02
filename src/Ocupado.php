@@ -21,6 +21,7 @@ class Ocupado {
 	{
 		$entity = $this->registerEntity($entity);
 		$builder = new Event();
+		$builder = $builder->where('entity_id',$entity->id);
 		$builder = Helpers::addDateRangeFilterQuery($builder, 'start_time','end_time',$startTime, $endTime);
 		return $builder->get();
 
