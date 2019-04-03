@@ -139,7 +139,15 @@ class AvailabilityGenerator {
 		// We should keep only such free which have 120 mins of time from here.
 		foreach($timings as $index => $timing)
 		{
+
 			$timing['bookable'] = false;
+
+			$goIndex = $index+1;
+
+			if(isset($timings[$goIndex]))
+			{
+				$timing['end_time'] = $timings[$goIndex]['time'];
+			}
 
 			if($timing['available'])
 			{
@@ -149,6 +157,7 @@ class AvailabilityGenerator {
 					$timing['bookable'] = false;
 				}else{
 					$timing['bookable'] = true;
+					$timing['end_time'] = $timings[$hasMinutesAhead]['time'];
 				}
 			}
 
@@ -199,7 +208,7 @@ class AvailabilityGenerator {
 			return false;
 		}
 
-		return true;
+		return $index;
 
 	}
 
