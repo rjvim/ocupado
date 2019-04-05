@@ -69,6 +69,8 @@ class AvailabilityGenerator {
 			$this->markBlockedDates();
 		}
 
+		$this->checkPastTimes();
+
 		$this->sortTimings();
 
 		$this->markBusyTimings();
@@ -130,6 +132,26 @@ class AvailabilityGenerator {
 		array_multisort($time, SORT_ASC, $timings);
 
 		$this->timings = $timings;
+	}
+
+	public function checkPastTimes()
+	{
+	   	$timings = $this->timings;
+
+		foreach ($timings as $key => $timing)
+		{
+			$carbonObject = Carbon::parse($this->date.' '.$timing['time']);
+
+			if($carbonObject->isPast())
+			{
+				$timing['available'] = false;
+			}
+
+			$timings[$key] = $timing;
+		}
+
+	    $this->timings = $timings;
+
 	}
 
 	public function generateSlots($slotSize)
