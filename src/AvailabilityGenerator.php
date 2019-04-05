@@ -64,6 +64,8 @@ class AvailabilityGenerator {
 
 		$this->findAvailableTimings();
 
+		// return true;
+
 		if(!$filter->ignoreBlockedDates)
 		{
 			$this->markBlockedDates();
@@ -161,7 +163,6 @@ class AvailabilityGenerator {
 		// We should keep only such free which have 120 mins of time from here.
 		foreach($timings as $index => $timing)
 		{
-
 			$timing['bookable'] = false;
 
 			$goIndex = $index+1;
@@ -183,11 +184,28 @@ class AvailabilityGenerator {
 				}
 			}
 
-			$timings[$index] = $timing;
+			if($this->startEndDiff($timing) == $slotSize){
+				$timings[$index] = $timing;
+			}else {
+				unset($timings[$index]);
+			}
 		}
 
 		$this->timings = $timings;
 
+	}
+
+	public function startEndDiff($timing)
+	{
+		if(!isset($timing['end_time']))
+		{
+			return 0;
+		}
+
+		$startTime = Carbon::parse($this->date.' '.$timing['time']);
+		$endTime = Carbon::parse($this->date.' '.$timing['end_time']);
+
+		return $startTime->diffInMinutes($endTime);
 	}
 
 	public function hasMinutesAhead($index, $minutes)
