@@ -133,6 +133,17 @@ class Ocupado {
 		]);
 	}
 
+	public function clearAvailability($entity)
+	{
+		$entity = $this->registerEntity($entity);
+
+		Availability::where([
+			'entity_id' => $entity->id
+		])->delete();
+
+		return true;
+	}
+	
 	public function setDayAvailability($entity, $daysOfWeek,
 		$timings, $fromDate = NULL, $toDate = NULL)
 	{
