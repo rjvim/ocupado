@@ -17,6 +17,21 @@ class Ocupado {
 
 	}
 
+
+	public function isAvailable($entity, $from, $to)
+	{
+		$entity = $this->registerEntity($entity);
+
+		$query = Event::where('entity_id',$entity->id);
+
+		$query = Helpers::addDateRangeFilterQuery($query,'start_time','end_time',
+			$from,$to);
+
+		$events = $query->get();
+
+		return $events->count() ? false : true;
+	}
+	
 	public function getEvents($entity, $startTime, $endTime)
 	{
 		$entity = $this->registerEntity($entity);
