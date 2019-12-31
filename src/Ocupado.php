@@ -96,7 +96,7 @@ class Ocupado {
 
         $builder = new Event();
         $builder = Helpers::addDateRangeFilterQuery($builder, 'start_time','end_time',$startTime, $endTime);
-        $found = $builder->whereNotIn('uuid',[$eventId])->get();
+        $found = $builder->where('entity_id',$entity->id)->whereNotIn('uuid',[$eventId])->get();
 
         if($found->count()){
             return 'An event exists during this time';
