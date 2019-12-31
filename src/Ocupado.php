@@ -134,6 +134,17 @@ class Ocupado {
         return true;
     }
 
+    public function deleteEvents($entity)
+    {
+        $entity = $this->registerEntity($entity);
+
+        Event::where([
+            'entity_id' => $entity->id,
+        ])->delete();
+
+        return true;
+    }
+
     public function findOverlaps($timings)
     {
         $overlaps = Helpers::anyOverlaps($timings);
